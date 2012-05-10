@@ -1,0 +1,86 @@
+//	$( "#columnList" ).sortable({
+//		revert: true
+//	});
+	
+//	$( "#listTODO" ).sortable({
+//		revert: true
+//	});
+//	
+//	$( "#listDOING" ).sortable({
+//		revert: true
+//	});
+//	
+//	$( "#listDONE" ).sortable({
+//		revert: true
+//	});
+	
+//	$( "#columnList" ).sortable({
+//		connectWith: ".connectedSortable"
+//	}).disableSelection();
+//	
+//	
+//	$( "ul, li" ).disableSelection();
+//	
+//	//$("#draggable").draggable();
+//
+//	
+//	//columnList
+//	$("#columnList").droppable({
+//		drop : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		out : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		over : function(event, ui) {
+//			$(this).addClass("ui-state-highlight");
+//			$(this).append("<div id='newCard'></div>");
+//		}
+//	});
+	
+//	$("#droppableTODO").droppable({
+//		drop : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		out : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		over : function(event, ui) {
+//			$(this).addClass("ui-state-highlight");
+//			$(this).append("<div id='newCard'></div>");
+//		}
+//	});
+//
+//	$("#droppableDOING").droppable({
+//		drop : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		out : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		over : function(event, ui) {
+//			$(this).addClass("ui-state-highlight");
+//			$(this).append("<div id='newCard'></div>");
+//		}
+//	});
+//
+//	$("#droppableDONE").droppable({
+//		drop : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		out : function(event, ui) {
+//			$(this).removeClass("ui-state-highlight");
+//			$("#newCard").remove();
+//		},
+//		over : function(event, ui) {
+//			$(this).addClass("ui-state-highlight");
+//			$(this).append("<div id='newCard'></div>");
+//		}
+//	});

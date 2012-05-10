@@ -1,0 +1,38 @@
+.desktop ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+
+.desktop li {
+	margin: 5px;
+	padding: 5px;
+	width: 150px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.draggable {
+	width: 200px;
+	height: 100px;
+	padding: 0.5em;
+	float: left;
+	margin: 10px 10px 10px 0;
+}
+
+#droppableDONE,#droppableDOING,#droppableTODO {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	width: 250px;
+	min-height: 500px;
+	height: 100%;
+	padding: 0.5em;
+	float: left;
+	margin: 10px;
+}
+
+#droppableDONE a,#droppableDOING a,#droppableTODO a {
+	color: navy;
+}
