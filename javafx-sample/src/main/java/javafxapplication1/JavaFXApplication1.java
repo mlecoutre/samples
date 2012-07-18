@@ -21,10 +21,10 @@ public class JavaFXApplication1 extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("..\\fxml\\SampleBuilder.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../fxml/SampleBuilder.fxml"));
 
         stage.setScene(new Scene(root));
-        stage.getScene().getStylesheets().add(getClass().getResource("..\\css\\SampleBuilder.css").toExternalForm());
+        stage.getScene().getStylesheets().add(getClass().getResource("../css/SampleBuilder.css").toExternalForm());
         stage.show();
     }
 }

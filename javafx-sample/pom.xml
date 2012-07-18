@@ -9,7 +9,9 @@
     <version>1.0</version>
 
     <properties>
-        <fx.home>C:\Program Files\Oracle\JavaFX 2.1 SDK\</fx.home>
+        <!--
+            C:\Program Files\Oracle\JavaFX 2.1 SDK\ -->
+        <fx.home>/Library/Java/JavaVirtualMachines/1.7.0.jdk/Contents/Home</fx.home>
         <fx.version>2.1</fx.version>
     </properties>
 
@@ -18,7 +20,7 @@
             <groupId>com.oracle</groupId>
             <artifactId>javafx</artifactId>
             <version>${fx.version}</version>
-            <systemPath>${fx.home}/rt/lib/jfxrt.jar</systemPath>
+            <systemPath>${fx.home}/jre/lib/jfxrt.jar</systemPath>
             <scope>system</scope>
         </dependency>
     </dependencies>
