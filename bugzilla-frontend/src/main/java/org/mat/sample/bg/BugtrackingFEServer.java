@@ -1,8 +1,5 @@
 package org.mat.sample.bg;
 
-import static com.google.inject.Guice.createInjector;
-import static com.google.inject.util.Modules.override;
-
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
@@ -15,52 +12,50 @@ import com.sun.jersey.guice.spi.container.GuiceComponentProviderFactory;
 import com.sun.net.httpserver.HttpServer;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 
+import static com.google.inject.Guice.createInjector;
+import static com.google.inject.util.Modules.override;
+
 public class BugtrackingFEServer extends AbstractIdleService {
-	private final int port;
-	private final Module[] modules;
-	@SuppressWarnings("restriction")
-	private HttpServer httpServer;
+    private final int port;
+    private final Module[] modules;
 
-	public BugtrackingFEServer(int port, Module... modules) {
-		this.port = port;
-		this.modules = modules;
-	}
+    private HttpServer httpServer;
 
-	public int getPort() {
-		return port;
-	}
+    public BugtrackingFEServer(int port, Module... modules) {
+        this.port = port;
+        this.modules = modules;
+    }
 
-	@SuppressWarnings("restriction")
-	@Override
-	protected void startUp() throws Exception {
-		ResourceConfig config = new DefaultResourceConfig(
-				BugtrackingProxyResource.class, JacksonJsonProvider.class);
+    public int getPort() {
+        return port;
+    }
 
-		Module module = override(new BugtrackingModule()).with(modules);
-		Injector injector = createInjector(module);
+    protected void startUp() throws Exception {
+        ResourceConfig config = new DefaultResourceConfig(
+                BugtrackingProxyResource.class, JacksonJsonProvider.class);
 
-		IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(
-				config, injector);
+        Module module = override(new BugtrackingModule()).with(modules);
+        Injector injector = createInjector(module);
 
-		httpServer = HttpServerFactory.create("http://localhost:" + port + "/",
-				config, ioc);
-		httpServer.start();
-	}
+        IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(
+                config, injector);
 
-	@SuppressWarnings("restriction")
-	@Override
-	protected void shutDown() {
-		httpServer.stop(1);
-	}
+        httpServer = HttpServerFactory.create("http://localhost:" + port + "/",
+                config, ioc);
+        httpServer.start();
+    }
 
-	public static void main(String[] args) {
-		new BugtrackingFEServer(8080).startAndWait();
-	}
+    protected void shutDown() {
+        httpServer.stop(1);
+    }
 
-	static class BugtrackingModule extends AbstractModule {
-		@Override
-		protected void configure() {
-			bind(TasksService.class).toInstance(new TasksService());
-		}
-	}
+    public static void main(String[] args) {
+        new BugtrackingFEServer(8080).startAndWait();
+    }
+
+    static class BugtrackingModule extends AbstractModule {
+        protected void configure() {
+            bind(TasksService.class).toInstance(new TasksService());
+        }
+    }
 }
