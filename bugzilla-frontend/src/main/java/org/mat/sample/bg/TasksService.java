@@ -1,4 +1,4 @@
-package org.mat.sample.bg;
+package org.mat.sample.server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
