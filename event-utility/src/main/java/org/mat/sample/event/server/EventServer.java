@@ -1,4 +1,4 @@
-package org.mat.sample.server;
+package org.mat.sample.event.server;
 
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.inject.AbstractModule;
@@ -11,7 +11,8 @@ import com.sun.jersey.core.spi.component.ioc.IoCComponentProviderFactory;
 import com.sun.jersey.guice.spi.container.GuiceComponentProviderFactory;
 import com.sun.net.httpserver.HttpServer;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-
+import static com.google.inject.Guice.createInjector;
+import static com.google.inject.util.Modules.override;
 /**
  * User: mlecoutre
  * Date: 19/07/12

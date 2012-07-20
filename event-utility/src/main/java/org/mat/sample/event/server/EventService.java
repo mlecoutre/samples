@@ -1,12 +1,7 @@
-package org.mat.sample.server;
+package org.mat.sample.event.server;
 
 import org.mat.sample.event.Event;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +21,11 @@ public class EventService {
         Events.add(Event);
         // Create the client resource
         return Events;
+    }
+
+    public boolean create(Event event) {
+
+        return false;
     }
 
 
