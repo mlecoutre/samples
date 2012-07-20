@@ -23,9 +23,9 @@ public class EventService {
         return Events;
     }
 
-    public boolean create(Event event){
+    public boolean create(Event event) {
 
-
+        return false;
     }
 
 
