@@ -28,7 +28,7 @@ public class TranscoClient {
     public static String callTransco(String param) {
 
 
-        return null;
+        return DataSourceContext.datasourceURL;
     }
 
     /**
@@ -37,8 +37,8 @@ public class TranscoClient {
      */
     public static String callTranscoWithCache(String param) {
 
-        //TODO configuring TranscoCacheManager cache
-
+        //Configuring cache
+        Cache cache = initCacheConfiguration();
 
         // input
         IData input = IDataFactory.create();
@@ -68,7 +68,7 @@ public class TranscoClient {
      * local cache instance.
      * @return cache
      */
-    private Cache initCacheConfiguration() {
+    private static Cache initCacheConfiguration() {
         CacheManager cm = null;
         Cache cache = null;
         boolean isCMFound = false;
