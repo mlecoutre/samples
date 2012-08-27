@@ -1,5 +1,6 @@
 package am.projects.webtransco.client;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * Date: 21/08/12
  * Time: 09:53
  */
-public class ListCall {
+public class ListCall implements Serializable {
     private String functionName;
     private List<String> values;
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transco-configuration>
+    <!-- CONFIGURATION FOR WEBMETHODS CLIENT-->
+    <wm-configuration>
+        <cache-configuration>
+            <cache-manager-name></cache-manager-name>
+            <cache-name></cache-name>
+        </cache-configuration>
+        <wm-package>transconeeds</wm-package>
+
+    </wm-configuration>
+
+    <!-- CONFIGURATION FOR STANDALONE CLIENT-->
+    <standalone-configuration>
+        <cache-configuration>
+
+        </cache-configuration>
+        <datastore>
+            <datastore-alias></datastore-alias>
+            <jdbc-url></jdbc-url>
+            <jdbc-user></jdbc-user>
+            <jdbc-password></jdbc-password>
+            <jdbc-timeout></jdbc-timeout>
+        </datastore>
+
+
+    </standalone-configuration>
+</transco-configuration>

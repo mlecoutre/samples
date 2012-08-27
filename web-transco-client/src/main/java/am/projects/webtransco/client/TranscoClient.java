@@ -54,24 +54,28 @@ public class TranscoClient {
      * @param defaultValues      list of default values
      * @return List<ListResponse>
      */
-    public static List<ListResponse> callTransco(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) {
+    public static List<ListResponse> callTransco(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
 
         try {
             return TranscoClient.getInstance().exeStrategy.callTransco(dataStoreAliasName, throwException, parameters, defaultValues);
-        } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String error = sw.toString() + "executionMode: " + TranscoClient.getInstance().executionMode;
-            List<ListResponse> response = new ArrayList<ListResponse>();
-            List<String> values = new ArrayList<String>();
-            values.add(error);
+        } catch (NoResultException nre) {
+            if (throwException) {
+                throw nre;
+            } else {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                nre.printStackTrace(pw);
+                String error = sw.toString() + "executionMode: " + TranscoClient.getInstance().executionMode;
+                List<ListResponse> response = new ArrayList<ListResponse>();
+                List<String> values = new ArrayList<String>();
+                values.add(error);
+            }
         }
         return null;
     }
 
     /**
-     * @param dataStoreAliasName Transco_TBO, Transco_DOMCOM
+     * @param dataStoreAliasName Transco_TBO, Transco_DOMCOM, Transco_BOSS
      * @param throwException     boolean value
      * @param parameters         list of input parameters
      * @param defaultValues      list of default values
@@ -93,30 +97,6 @@ public class TranscoClient {
         return null;
     }
 
-    /*
-public static String callTranco(String param) {
-   List<String> params = new ArrayList<String>();
-   params.add("APP");
-   params.add("ArcelorMittal.Logistic.Metris.LCE.EndPoint.BelvalWS.ReceiveLogisticEvent");
-   ListCall lc = new ListCall("Metris.DetermineWebServiceUrl.METRISTransformTransco001", params);
-
-   List<String> results = null;
-   String error = "";
-   try {
-       results = TranscoClient.getInstance().exeStrategy.callTransco("Transco_TBO", false, lc, null);
-   } catch (Exception e) {
-       StringWriter sw = new StringWriter();
-       PrintWriter pw = new PrintWriter(sw);
-       e.printStackTrace(pw);
-       error = sw.toString() + "executionMode: " + TranscoClient.getInstance().executionMode;
-   }
-   if (results == null) {
-       return error;
-   } else {
-       return results.get(0);
-   }
-}
-    */
     public ExecutionStrategy getExeStrategy() {
         return exeStrategy;
     }

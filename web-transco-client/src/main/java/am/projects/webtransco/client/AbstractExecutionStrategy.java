@@ -1,12 +1,14 @@
 package am.projects.webtransco.client;
 
-import com.wm.util.JournalLogger;
 import net.sf.ehcache.Cache;
+import net.sf.ehcache.Element;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ import java.util.List;
  */
 public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
 
+    //Used to store the SQL connection for parallel execution (required for wm)
     public static final ThreadLocal userThreadLocal = new ThreadLocal();
 
 
@@ -29,12 +32,33 @@ public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
      * @return output result of the transco
      */
     @Override
-    public List<ListResponse> callTransco(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws Exception {
+    public List<ListResponse> callTransco(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
         List<ListResponse> response = new ArrayList<ListResponse>();
+        int index = 0;
         for (ListCall lc : parameters) {
             //TODO check if lc.getValues < 9
+            String defaultValue = null;
+            if (defaultValues != null && defaultValues.size() > index) {
+                defaultValue = defaultValues.get(index);
+            }
+            ListResponse lr = callUnikTransco(dataStoreAliasName, throwException, lc, defaultValue);
+            response.add(lr);
+            index++;
+        }
+        return response;
+    }
 
-            List<String> results = new ArrayList<String>();
+    /**
+     * @param dataStoreAliasName alias of the transco repository
+     * @param throwException     boolean to know if we have to throw exception if no value are found
+     * @param lc                 listCall
+     * @param defaultValue       default values to return if no value are found.
+     * @return transco output values
+     */
+    private ListResponse callUnikTransco(String dataStoreAliasName, boolean throwException, ListCall lc, String defaultValue) throws NoResultException {
+        List<String> results = new ArrayList<String>();
+        String mResult = null;
+        try {
             Connection connection = retrieveConnection(dataStoreAliasName);
 
             StringBuffer buffer = new StringBuffer("exec tra_Routage1_10 "
@@ -49,41 +73,105 @@ public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
                 buffer.append(", @VAR_").append(j).append("=''");
             }
 
-            JournalLogger.log(JournalLogger.INFO, JournalLogger.FAC_FLOW_SVC, JournalLogger.INFO, "request : " + buffer.toString());
             PreparedStatement pstmt = connection.prepareStatement(buffer.toString());
 
             pstmt.execute();
 
             ResultSet rs = pstmt.getResultSet();
+            boolean hasNext = rs.next();
+            if (hasNext) {
+                mResult = rs.getString(1);
+            } else {
+                //assign default value if given in parameter
+                if (defaultValue != null) {
+                    mResult = defaultValue;
+                } else if (throwException) {        // invalid input
+                    throw new NoResultException(NoResultException.EX_MSG_NO_RESULT, lc.getFunctionName(), lc.getValues());
+                } else {
+                    Formatter formatter = new Formatter();
+                    mResult = formatter.format(NoResultException.EX_MSG_NO_RESULT, lc.getFunctionName(), NoResultException.listStringToString(lc.getValues())).toString();
+                }
+            }
+            if (mResult == null || mResult.startsWith("UnknownFunction")) {
+                if (throwException) {
+                    throw new NoResultException(NoResultException.EX_MSG_UNKNOWN_FCT, lc.getFunctionName(), lc.getValues());
+                } else {
+                    mResult = "UnknownFunction : " + lc.getFunctionName();
+                }
+            }
 
-
-            rs.next();
-            String mResult = rs.getString("TRAN_VALEURCIBLE1");
             results.add(mResult);
-
-            ListResponse lr = new ListResponse();
-            lr.setFunctionName(lc.getFunctionName());
-            lr.setValues(results);
-            response.add(lr);
+        } catch (SQLException se) {
 
         }
-        return response;
+
+        ListResponse lr = new ListResponse();
+        lr.setFunctionName(lc.getFunctionName());
+        lr.setValues(results);
+        return lr;
+    }
+
+
+    /**
+     * @param lc input parameters
+     * @return cache transco key
+     */
+    public static String createCacheTranscoKey(ListCall lc) {
+        StringBuffer key = new StringBuffer();
+
+        if (lc.getValues() != null && lc.getValues().size() > 0 && lc.getFunctionName() != null) {
+            key.append(lc.getFunctionName().trim());
+            for (String p : lc.getValues()) {
+                if (p == null) {
+                    key.append("|").append(" ");
+                } else {
+                    key.append("|").append(p.trim());
+                }
+            }
+        }
+        return key.toString();
     }
 
     /**
      * transco output values
      *
-     * @param dataStoreAliasName
-     * @param throwException
-     * @param parameters
-     * @param defaultValues
+     * @param dataStoreAliasName alias of the transco repository
+     * @param throwException     boolean to know if we have to throw exception if no value are found
+     * @param parameters         input parameters
+     * @param defaultValues      default values to return if no value are found.
      * @return transco output values
      */
     @Override
-    public List<ListResponse> callTranscoWithCache(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) {
+    public List<ListResponse> callTranscoWithCache(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
         Cache cache = retrieveCache();
+        List<ListResponse> lr = new ArrayList<ListResponse>();
+        int index = 0;
 
-        return null;
+        for (ListCall lc : parameters) {
+            ListResponse response = null;
+            if (cache == null) {
+                //TODO WARN no CACHE AVAILABLE
+                String defaultValue = null;
+                if (defaultValues != null && defaultValues.size() > index) {
+                    defaultValue = defaultValues.get(index);
+                }
+                response = callUnikTransco(dataStoreAliasName, throwException, lc, null);
+            } else {
+                String key = createCacheTranscoKey(lc);
+                Element elt = cache.get(key);
+
+                if (elt == null) {
+                    response = callUnikTransco(dataStoreAliasName, throwException, lc, null);
+                    elt = new Element(key, response);
+                    cache.put(elt);
+                } else {
+                    response = (ListResponse) elt.getValue();
+                }
+            }
+            lr.add(response);
+            index++;
+        }
+        return lr;
     }
 
     public Connection getConnection() {
