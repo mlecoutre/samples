@@ -36,7 +36,7 @@ public class StrategyExeWM extends AbstractExecutionStrategy {
         }catch (Exception e){
             JournalLogger.log(JournalLogger.ERROR, JournalLogger.FAC_FLOW_SVC, JournalLogger.ERROR, "[TRANSCO]  ERROR RetrieveConnection done. ", e);
         }
-        JournalLogger.log(JournalLogger.DEBUG, JournalLogger.FAC_FLOW_SVC, JournalLogger.DEBUG, "[TRANSCO] RetrieveConnection done. " + this.getConnection());
+        //JournalLogger.log(JournalLogger.DEBUG, JournalLogger.FAC_FLOW_SVC, JournalLogger.DEBUG, "[TRANSCO] RetrieveConnection done. " + this.getConnection());
 
         return this.getConnection();
     }

@@ -100,7 +100,7 @@ public class TranscoCallsTest {
         System.out.println("testDontThrowExceptionWithUnknownFunction: " + results);
         assertTrue("An exception shouldn't be thrown.", !isExceptionThrown);
         assertTrue("FunctionName should indicate the name of the function", results.get(0).getFunctionName().equals("MyUnknownFunction"));
-        assertTrue("First result of return values should say UnknownFunction : <functionName>", results.get(0).getValues().get(0).contains("UnknownFunction : MyUnknownFunction"));
+        assertTrue("First result of return values should say UnknownFunction : <functionName>", results.get(0).getValues().get(0).contains("Unknown Function : MyUnknownFunction"));
 
     }
 

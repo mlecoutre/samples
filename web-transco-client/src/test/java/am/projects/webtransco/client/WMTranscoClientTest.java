@@ -60,7 +60,8 @@ public class WMTranscoClientTest {
         ListResponse lr = new ListResponse("myFunctionName", values);
         listResponses.add(lr);
         System.out.println("ListResponse: " + lr);
-        IData pipeline = WMTranscoClient.wrapOutputs(listResponses);
+        IData pipeline = IDataFactory.create();
+        pipeline = WMTranscoClient.wrapOutputs(listResponses, pipeline);
 
         assertTrue("Output pipeline shouldn't be null", pipeline != null);
 

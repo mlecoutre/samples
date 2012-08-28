@@ -8,11 +8,9 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Created with IntelliJ IDEA.
  * User: E010925
  * Date: 22/08/12
  * Time: 10:33
- * To change this template use File | Settings | File Templates.
  */
 public class CacheTest {
 

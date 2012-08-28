@@ -96,13 +96,13 @@ public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
                 if (throwException) {
                     throw new NoResultException(NoResultException.EX_MSG_UNKNOWN_FCT, lc.getFunctionName(), lc.getValues());
                 } else {
-                    mResult = "UnknownFunction : " + lc.getFunctionName();
+                    mResult = "Unknown Function : " + lc.getFunctionName();
                 }
             }
 
             results.add(mResult);
         } catch (SQLException se) {
-
+            se.printStackTrace();
         }
 
         ListResponse lr = new ListResponse();

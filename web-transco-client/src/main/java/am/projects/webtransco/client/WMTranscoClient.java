@@ -65,8 +65,8 @@ public class WMTranscoClient {
      * @param lResponses output return value
      * @return IData structure
      */
-    static IData wrapOutputs(List<ListResponse> lResponses) {
-        IData pipeline = IDataFactory.create();
+    static IData wrapOutputs(List<ListResponse> lResponses, IData pipeline) {
+        //IData pipeline = IDataFactory.create();
         // pipeline
         IDataCursor pipelineCursor_1 = pipeline.getCursor();
 
@@ -103,17 +103,27 @@ public class WMTranscoClient {
             }
         }
 
-        pipeline = wrapOutputs(lResponses);
+        pipeline = wrapOutputs(lResponses, pipeline);
 
 
     }
 
+    public static boolean cleanCache() {
+        return TranscoClient.cleanCache();
+    }
+
     public static void callTranscoWithCache(IData pipeline) throws ServiceException {
+
+        List<ListResponse> lResponses = null;
         WMInput input = wrapInputs(pipeline);
-
-        List<ListResponse> lResponses = TranscoClient.callTranscoWithCache(input.getDatastoreAlias(), input.isThrowException(), input.getCalls(), input.getDefaultValues());
-
-        pipeline = wrapOutputs(lResponses);
+        try {
+            lResponses = TranscoClient.callTranscoWithCache(input.getDatastoreAlias(), input.isThrowException(), input.getCalls(), input.getDefaultValues());
+        } catch (NoResultException nre) {
+            if (input.isThrowException()) {
+                throw new ServiceException(nre.getMessage());
+            }
+        }
+        pipeline = wrapOutputs(lResponses, pipeline);
 
     }
 }

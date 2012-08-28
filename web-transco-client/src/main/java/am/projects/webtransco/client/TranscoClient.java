@@ -81,20 +81,34 @@ public class TranscoClient {
      * @param defaultValues      list of default values
      * @return List<ListResponse>
      */
-    public static List<ListResponse> callTranscoWithCache(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) {
+    public static List<ListResponse> callTranscoWithCache(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
 
         try {
             return TranscoClient.getInstance().exeStrategy.callTranscoWithCache(dataStoreAliasName, throwException, parameters, defaultValues);
-        } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String error = sw.toString() + "executionMode: " + TranscoClient.getInstance().executionMode;
-            List<ListResponse> response = new ArrayList<ListResponse>();
-            List<String> values = new ArrayList<String>();
-            values.add(error);
+        } catch (NoResultException nre) {
+            if (throwException) {
+                throw nre;
+            } else {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                nre.printStackTrace(pw);
+                String error = sw.toString() + "executionMode: " + TranscoClient.getInstance().executionMode;
+                List<ListResponse> response = new ArrayList<ListResponse>();
+                List<String> values = new ArrayList<String>();
+                values.add(error);
+            }
         }
         return null;
+    }
+
+    /**
+     * Remove all element from cache
+     *
+     * @return true.
+     */
+    public static boolean cleanCache() {
+        TranscoClient.getInstance().exeStrategy.retrieveCache().removeAll();
+        return true;
     }
 
     public ExecutionStrategy getExeStrategy() {
