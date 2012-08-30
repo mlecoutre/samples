@@ -1,4 +1,4 @@
-package am.projects.webtransco.client;
+package am.projects.webtransco.client.model;
 
 import java.io.StringWriter;
 import java.util.Formatter;
@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class NoResultException extends Exception {
 
-    static final String EX_MSG_NO_RESULT = "No result for function : %s with values : %s";
-    static final String EX_MSG_UNKNOWN_FCT = "Unknown function : %s (values: %s)"; // old return value was 'unknow'
+    public static final String EX_MSG_NO_RESULT = "No result for function : %s with values : %s";
+    public static final String EX_MSG_UNKNOWN_FCT = "Unknown function : %s (values: %s)"; // old return value was 'unknow'
 
     private String exMsg;
     private String functionName;

@@ -1,4 +1,4 @@
-package am.projects.webtransco.client;
+package am.projects.webtransco.client.model;
 
 import java.util.List;
 

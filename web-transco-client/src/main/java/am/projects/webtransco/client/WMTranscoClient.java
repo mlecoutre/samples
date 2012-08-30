@@ -1,5 +1,9 @@
 package am.projects.webtransco.client;
 
+import am.projects.webtransco.client.model.ListCall;
+import am.projects.webtransco.client.model.ListResponse;
+import am.projects.webtransco.client.model.NoResultException;
+import am.projects.webtransco.client.model.WMInput;
 import com.wm.app.b2b.server.ServiceException;
 import com.wm.data.IData;
 import com.wm.data.IDataCursor;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<transco-configuration>
+    <!-- CONFIGURATION FOR WEBMETHODS CLIENT-->
+    <wm-configuration>
+        <cache manager="wmmanager" cache="wmcache" />
+
+    </wm-configuration>
+
+    <!-- CONFIGURATION FOR STANDALONE CLIENT-->
+    <standalone-configuration>
+        <cache manager="manager" cache="cache" />
+
+        <datastore alias="dsalias1" url="dsurl1" user="dsuser1" password="dspassword1" timeout="10" />
+        <datastore alias="dsalias2" url="dsurl2" user="dsuser2" password="dspassword2" timeout="100" />
+        <datastore alias="Transco_TBO" url="jdbc:sqlserver://dun-tst-eai01:1433;DatabaseName=TRANSCO_TBO" user="TRANSCO_TBO_User" password="sqluser" timeout="1000" />
+
+
+    </standalone-configuration>
+</transco-configuration>

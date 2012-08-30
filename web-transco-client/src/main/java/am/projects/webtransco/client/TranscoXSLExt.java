@@ -1,5 +1,9 @@
 package am.projects.webtransco.client;
 
+import am.projects.webtransco.client.model.ListCall;
+import am.projects.webtransco.client.model.ListResponse;
+import am.projects.webtransco.client.model.NoResultException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +15,7 @@ import java.util.List;
  */
 public class TranscoXSLExt {
 
-    public static String callTransco(String datastoreAlias, String functionName, String thrEx, String  p1) throws NoResultException{
+    public static String callTransco(String datastoreAlias, String functionName, String thrEx, String  p1) throws NoResultException {
 
         boolean throwException = "TRUE".equalsIgnoreCase(thrEx);
         List<String> defaultValues = null; //not yet managed

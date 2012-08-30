@@ -1,5 +1,6 @@
 package am.projects.webtransco.client;
 
+import am.projects.webtransco.client.model.ListCall;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package am.projects.webtransco.client;
+package am.projects.webtransco.client.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,15 +8,15 @@ import java.util.List;
  * Date: 21/08/12
  * Time: 09:53
  */
-public class ListCall implements Serializable {
+public class ListResponse  implements Serializable {
     private String functionName;
     private List<String> values;
 
-    public ListCall(){
+    public ListResponse(){
 
     }
 
-    public ListCall(String functionName, List<String> values){
+    public ListResponse(String functionName, List<String> values){
         this.functionName= functionName;
         this.values = values;
     }
@@ -39,7 +39,7 @@ public class ListCall implements Serializable {
 
     @Override
     public String toString() {
-        return "ListCall{" +
+        return "ListResponse{" +
                 "functionName='" + functionName + '\'' +
                 ", values=" + values +
                 '}';

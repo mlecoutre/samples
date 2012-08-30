@@ -1,8 +1,18 @@
 package am.projects.webtransco.client;
 
+import am.projects.webtransco.client.model.ListCall;
+import am.projects.webtransco.client.model.ListResponse;
+import am.projects.webtransco.client.model.NoResultException;
+import am.projects.webtransco.client.model.TranscoDatastore;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.HierarchicalConfiguration;
+import org.apache.commons.configuration.XMLConfiguration;
+
+import javax.annotation.PostConstruct;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,13 +27,50 @@ public class TranscoClient {
     public static final String MODE_STANDALONE = "modestandalone";
     public static final String MODE_WM = "modewm";
     public static final String MODE_DEFAULT = MODE_STANDALONE;
+    private static final String CONFIGURATION_FILE = "transco-configuration.xml";
+
     private static TranscoClient instance = new TranscoClient();
     public String executionMode = MODE_DEFAULT;
     private ExecutionStrategy exeStrategy = null;
+    private TranscoContext context = null;
 
+    //default constructor
+    public TranscoClient() {
+        initConfiguration();
+    }
 
     public static TranscoClient getInstance() {
         return instance;
+    }
+
+
+    public TranscoContext initConfiguration() {
+
+        System.out.println("initConfiguration");
+        XMLConfiguration config = null;
+        context = new TranscoContext();
+        try {
+            config = new XMLConfiguration(CONFIGURATION_FILE);
+
+
+            List<HierarchicalConfiguration> datastores =
+                    config.configurationsAt("standalone-configuration.datastore");
+            HashMap<String, TranscoDatastore> mapDatastores = new HashMap<String, TranscoDatastore>();
+            for (HierarchicalConfiguration dshc : datastores) {
+                String alias = dshc.getString("[@alias]");
+                String url = dshc.getString("[@url]");
+                String user = dshc.getString("[@user]");
+                String password = dshc.getString("[@password]");
+                int timeout = dshc.getInt("[@timeout]");
+                TranscoDatastore datastore = new TranscoDatastore(alias, url, user, password, timeout);
+                mapDatastores.put(alias, datastore);
+            }
+            context.setDatastores(mapDatastores);
+            System.out.println("context: " + context);
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
+        return context;
     }
 
     /**
@@ -41,7 +88,8 @@ public class TranscoClient {
             } else if (MODE_WM.equals(executionMode)) {
                 exeStrategy = new StrategyExeWM();
             } else {
-                //TODO manage error
+                //default strategy
+                exeStrategy = new StrategyExeStandalone();
             }
         }
         return exeStrategy;
@@ -57,7 +105,8 @@ public class TranscoClient {
     public static List<ListResponse> callTransco(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
 
         try {
-            return TranscoClient.getInstance().exeStrategy.callTransco(dataStoreAliasName, throwException, parameters, defaultValues);
+            ExecutionStrategy strategy = getInstance().initStrategy("");
+            return strategy.callTransco(dataStoreAliasName, throwException, parameters, defaultValues);
         } catch (NoResultException nre) {
             if (throwException) {
                 throw nre;
@@ -99,6 +148,10 @@ public class TranscoClient {
             }
         }
         return null;
+    }
+
+    public TranscoContext getContext() {
+        return context;
     }
 
     /**

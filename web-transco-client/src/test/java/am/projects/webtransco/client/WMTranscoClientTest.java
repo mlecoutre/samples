@@ -1,5 +1,7 @@
 package am.projects.webtransco.client;
 
+import am.projects.webtransco.client.model.ListResponse;
+import am.projects.webtransco.client.model.WMInput;
 import com.wm.data.IData;
 import com.wm.data.IDataCursor;
 import com.wm.data.IDataFactory;

@@ -1,5 +1,8 @@
 package am.projects.webtransco.client;
 
+import am.projects.webtransco.client.model.ListCall;
+import am.projects.webtransco.client.model.ListResponse;
+import am.projects.webtransco.client.model.NoResultException;
 import net.sf.ehcache.Cache;
 
 import java.sql.Connection;

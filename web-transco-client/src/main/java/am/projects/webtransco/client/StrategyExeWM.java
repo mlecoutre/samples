@@ -1,9 +1,10 @@
 package am.projects.webtransco.client;
 
 import com.wm.app.b2b.server.Service;
-import com.wm.app.b2b.server.ServiceException;
 import com.wm.data.IData;
+import com.wm.data.IDataCursor;
 import com.wm.data.IDataFactory;
+import com.wm.data.IDataUtil;
 import com.wm.util.JournalLogger;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -22,17 +23,21 @@ public class StrategyExeWM extends AbstractExecutionStrategy {
     private static final String TRANSCO_CACHE_MANAGER = "TranscoCacheManager";
     private static final String TRANSCO_CACHE = "TranscoCache";
 
-    public static final String DATASTORE_PREFIX = "retrieve";
-    public static final String DATASTORE_CONNECTION_PACKKAGE = "awmf.transco.connections";
+    public static final String DATASTORE_CONNECTION_PACKAGE = "awmf.transco.connections";
+    public static final String DATASTORE_EXECUTE_SERVICE = "retrieveTranscoConnection";
     private static CacheManager cm = null;
 
     @Override
     public Connection retrieveConnection(String dataStoreAliasName) throws SQLException {
 
+        String connectionAlias = DATASTORE_CONNECTION_PACKAGE+":" + "Transco_TBO";
         IData input = IDataFactory.create(); //nothing in the pipeline
-        String serviceName = DATASTORE_PREFIX + dataStoreAliasName;
+        IDataCursor cursor = input.getCursor();
+        //  JournalLogger.log(JournalLogger.DEBUG, JournalLogger.FAC_FLOW_SVC, JournalLogger.DEBUG, "[TRANSCO] override connection alias: "+connectionAlias);
+        IDataUtil.put(cursor, "connectionName", connectionAlias);
+
         try{
-        IData output = Service.doInvoke(DATASTORE_CONNECTION_PACKKAGE, serviceName, input);
+        IData output = Service.doInvoke(DATASTORE_CONNECTION_PACKAGE, DATASTORE_EXECUTE_SERVICE, input);
         }catch (Exception e){
             JournalLogger.log(JournalLogger.ERROR, JournalLogger.FAC_FLOW_SVC, JournalLogger.ERROR, "[TRANSCO]  ERROR RetrieveConnection done. ", e);
         }

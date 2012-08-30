@@ -1,5 +1,8 @@
 package am.projects.webtransco.client;
 
+import am.projects.webtransco.client.model.ListCall;
+import am.projects.webtransco.client.model.ListResponse;
+import am.projects.webtransco.client.model.NoResultException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
