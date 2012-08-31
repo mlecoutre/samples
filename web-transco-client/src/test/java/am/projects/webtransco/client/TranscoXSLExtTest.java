@@ -26,27 +26,20 @@ public class TranscoXSLExtTest {
 
         String xmlInputFile = TranscoXSLExtTest.class.getResource("../../../../source.xml").getFile();
         Source xmlSource = new StreamSource(new FileInputStream(xmlInputFile));
-
-        // create the XSLT Stylesheet input source
-        // can be a DOM node, SAX stream, or a
-        // java input stream/reader
-
         String xsltInputFile = TranscoXSLExtTest.class.getResource("../../../../transfo.xsl").getFile();
         Source xsltSource = new StreamSource(new
                 FileInputStream(xsltInputFile));
 
-        // create the result target of the transformation
-        // can be a DOM node, SAX stream, or a java out
-        // stream/reader
+
         StringWriter sw = new StringWriter();
         Result transResult = new StreamResult(sw);
 
 
-        // create the transformerfactory & transformer instance
+
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer t = tf.newTransformer(xsltSource);
 
-        // execute transformation & fill result target object
+
         t.transform(xmlSource, transResult);
 
         System.out.println(sw.toString());

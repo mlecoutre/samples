@@ -58,8 +58,7 @@ public class StrategyExeWM extends AbstractExecutionStrategy {
         Cache cache = null;
         boolean isCMFound = false;
         if (cm == null) {
-            for (Iterator<CacheManager> it = CacheManager.ALL_CACHE_MANAGERS.iterator(); it.hasNext(); ) {
-                cm = it.next();
+            for (CacheManager cm : CacheManager.ALL_CACHE_MANAGERS) {
                 if (TRANSCO_CACHE_MANAGER.equals(cm.getName())) {
                     isCMFound = true;
                     break;
