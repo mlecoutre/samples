@@ -14,8 +14,8 @@
     </properties>
 
     <scm>
-        <!--<connection>scm:git:git://github.com/mlecoutre/web-transco-client.git</connection>-->
-        <connection>scm:git:https://github.com/mlecoutre/web-transco-client.git</connection>
+        <connection>scm:git:https://mlecoutre@github.com/mlecoutre/web-transco-client.git</connection>
+        <developerConnection>scm:git:https://mlecoutre@github.com/mlecoutre/web-transco-client.git</developerConnection>
         <url>https://github.com/mlecoutre/web-transco-client.git</url>
     </scm>
 
