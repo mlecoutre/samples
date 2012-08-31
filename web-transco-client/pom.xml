@@ -3,7 +3,7 @@
 
     <groupId>am.projects</groupId>
     <artifactId>web-transco-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>web-transco-client</name>
@@ -15,7 +15,7 @@
 
     <scm>
         <!--<connection>scm:git:git://github.com/mlecoutre/web-transco-client.git</connection>-->
-        <connection>scm:git:git://github.com/mlecoutre/web-transco-client.git</connection>
+        <connection>scm:git:https://github.com/mlecoutre/web-transco-client.git</connection>
         <url>https://github.com/mlecoutre/web-transco-client.git</url>
     </scm>
 
