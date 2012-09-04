@@ -5,6 +5,8 @@ import am.projects.webtransco.client.model.ListResponse;
 import am.projects.webtransco.client.model.NoResultException;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +27,7 @@ public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
 
     //Used to store the SQL connection for parallel execution (required for wm)
     public static final ThreadLocal userThreadLocal = new ThreadLocal();
+    private static Logger logger = LoggerFactory.getLogger(AbstractExecutionStrategy.class.getName());
 
 
     /**
@@ -105,7 +108,7 @@ public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
 
             results.add(mResult);
         } catch (SQLException se) {
-            se.printStackTrace();
+            logger.error("SQL Exception", se);
         }
 
         ListResponse lr = new ListResponse();
@@ -153,7 +156,8 @@ public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
         for (ListCall lc : parameters) {
             ListResponse response = null;
             if (cache == null) {
-                //TODO WARN no CACHE AVAILABLE
+
+                logger.warn("WARNING: no cache available.");
                 String defaultValue = null;
                 if (defaultValues != null && defaultValues.size() > index) {
                     defaultValue = defaultValues.get(index);

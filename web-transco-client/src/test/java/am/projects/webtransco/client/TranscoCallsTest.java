@@ -6,6 +6,8 @@ import am.projects.webtransco.client.model.NoResultException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.*;
 
@@ -19,6 +21,9 @@ import java.util.List;
  * Date: 27/08/12
  */
 public class TranscoCallsTest {
+
+    Logger logger = LoggerFactory.getLogger(TranscoCallsTest.class.getName());
+
     private static final String strServerIPAddress = "dun-tst-eai01";
     private static final String strDatabaseName = "TRANSCO_TBO";
     private static final String strUserName = "TRANSCO_TBO_User";
@@ -58,7 +63,7 @@ public class TranscoCallsTest {
         List<ListResponse> results = null;
 
         results = TranscoClient.callTransco("Transco_TBO", true, calls, null);
-        System.out.println("testSimpleCall: " + results.toString());
+        logger.debug("testSimpleCall: " + results.toString());
         assertTrue("This call should have a result", results != null && results.size() == 1);
         assertTrue("This call should have one response", results.get(0).getValues() != null && results.get(0).getValues().size() == 1);
 
@@ -77,7 +82,7 @@ public class TranscoCallsTest {
         try {
             results = TranscoClient.callTransco("Transco_TBO", true, calls, null);
         } catch (NoResultException nre) {
-            System.out.println("testThrowExceptionWithUnknownFunctionName: " + nre);
+            logger.debug("testThrowExceptionWithUnknownFunctionName: " + nre);
             isExceptionThrown = true;
             assertTrue("Exception message should indicate 'Unknown function'", nre.getMessage().startsWith("Unknown function"));
             assertTrue("Exception message should contain the name of the function given as input parameter", nre.getMessage().contains("MyUnknownFunction"));
@@ -100,7 +105,7 @@ public class TranscoCallsTest {
         } catch (NoResultException nre) {
             isExceptionThrown = true;
         }
-        System.out.println("testDontThrowExceptionWithUnknownFunction: " + results);
+        logger.debug("testDontThrowExceptionWithUnknownFunction: " + results);
         assertTrue("An exception shouldn't be thrown.", !isExceptionThrown);
         assertTrue("FunctionName should indicate the name of the function", results.get(0).getFunctionName().equals("MyUnknownFunction"));
         assertTrue("First result of return values should say UnknownFunction : <functionName>", results.get(0).getValues().get(0).contains("Unknown Function : MyUnknownFunction"));
@@ -120,9 +125,9 @@ public class TranscoCallsTest {
             List<ListResponse> results = null;
 
             results = TranscoClient.callTransco("Transco_TBO", true, calls, null);
-            System.out.println("testThrowExceptionWithIncorrectInput : " + results.toString());
+            logger.debug("testThrowExceptionWithIncorrectInput : " + results.toString());
         } catch (NoResultException nre) {
-            System.out.println("testThrowExceptionWithIncorrectInput: " + nre);
+            logger.debug("testThrowExceptionWithIncorrectInput: " + nre);
             isExceptionThrown = true;
             assertTrue("Error msg should contains 'No result for function :'", nre.getMessage().contains("No result for function :"));
         }
@@ -143,9 +148,9 @@ public class TranscoCallsTest {
 
 
             results = TranscoClient.callTransco("Transco_TBO", false, calls, null);
-            System.out.println("testDontThrowExceptionWithIncorrectInput : " + results.toString());
+            logger.debug("testDontThrowExceptionWithIncorrectInput : " + results.toString());
         } catch (NoResultException nre) {
-            System.out.println("testDontThrowExceptionWithIncorrectInput: " + nre);
+            logger.debug("testDontThrowExceptionWithIncorrectInput: " + nre);
             isExceptionThrown = true;
             assertTrue("Error msg should contains 'No result for function :'", nre.getMessage().contains("No result for function :"));
 
@@ -168,7 +173,7 @@ public class TranscoCallsTest {
         List<ListResponse> results = null;
 
         results = TranscoClient.callTransco("Transco_TBO", false, calls, defaultValues);
-        System.out.println("testDefaultValues: " + results.toString());
+        logger.debug("testDefaultValues: " + results.toString());
         assertTrue("This call should have a result", results != null && results.size() == 1);
         assertTrue("This call should have one response", results.get(0).getValues() != null && results.get(0).getValues().size() == 1);
 

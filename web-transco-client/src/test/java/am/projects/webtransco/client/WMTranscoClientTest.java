@@ -7,6 +7,8 @@ import com.wm.data.IDataCursor;
 import com.wm.data.IDataFactory;
 import com.wm.data.IDataUtil;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import static org.junit.Assert.*;
  * Time: 15:11
  */
 public class WMTranscoClientTest {
+    Logger logger = LoggerFactory.getLogger(TranscoXSLExtTest.class.getName());
 
     @Test
     public void testWrapInputs() {
@@ -61,7 +64,7 @@ public class WMTranscoClientTest {
         values.add("v2");
         ListResponse lr = new ListResponse("myFunctionName", values);
         listResponses.add(lr);
-        System.out.println("ListResponse: " + lr);
+        logger.debug("ListResponse: " + lr);
         IData pipeline = IDataFactory.create();
         pipeline = WMTranscoClient.wrapOutputs(listResponses, pipeline);
 

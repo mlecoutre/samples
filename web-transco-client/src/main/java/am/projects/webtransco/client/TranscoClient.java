@@ -7,6 +7,8 @@ import am.projects.webtransco.client.model.TranscoDatastore;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import java.io.PrintWriter;
@@ -23,6 +25,8 @@ import java.util.List;
  * @author mlecoutre
  */
 public class TranscoClient {
+
+    private static Logger logger= LoggerFactory.getLogger(TranscoClient.class.getName());
 
     public static final String MODE_STANDALONE = "modestandalone";
     public static final String MODE_WM = "modewm";
@@ -46,7 +50,7 @@ public class TranscoClient {
 
     public TranscoContext initConfiguration() {
 
-        System.out.println("initConfiguration");
+
         XMLConfiguration config = null;
         context = new TranscoContext();
         try {
@@ -66,9 +70,10 @@ public class TranscoClient {
                 mapDatastores.put(alias, datastore);
             }
             context.setDatastores(mapDatastores);
-            System.out.println("context: " + context);
+            logger.debug("InitConfiguration: found "+mapDatastores.size() +" data stores.");
+
         } catch (ConfigurationException e) {
-            e.printStackTrace();
+            logger.error("ERROR initConfiguration",e);
         }
         return context;
     }
@@ -105,8 +110,8 @@ public class TranscoClient {
     public static List<ListResponse> callTransco(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
 
         try {
-            ExecutionStrategy strategy = getInstance().initStrategy("");
-            return strategy.callTransco(dataStoreAliasName, throwException, parameters, defaultValues);
+
+            return getInstance().getExeStrategy().callTransco(dataStoreAliasName, throwException, parameters, defaultValues);
         } catch (NoResultException nre) {
             if (throwException) {
                 throw nre;
@@ -133,7 +138,7 @@ public class TranscoClient {
     public static List<ListResponse> callTranscoWithCache(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
 
         try {
-            return TranscoClient.getInstance().exeStrategy.callTranscoWithCache(dataStoreAliasName, throwException, parameters, defaultValues);
+            return TranscoClient.getInstance().getExeStrategy().callTranscoWithCache(dataStoreAliasName, throwException, parameters, defaultValues);
         } catch (NoResultException nre) {
             if (throwException) {
                 throw nre;
@@ -160,11 +165,14 @@ public class TranscoClient {
      * @return true.
      */
     public static boolean cleanCache() {
-        TranscoClient.getInstance().exeStrategy.retrieveCache().removeAll();
+        getInstance().getExeStrategy().retrieveCache().removeAll();
         return true;
     }
 
     public ExecutionStrategy getExeStrategy() {
+        if (exeStrategy == null){
+            ExecutionStrategy strategy = getInstance().initStrategy("");
+        }
         return exeStrategy;
     }
 }
