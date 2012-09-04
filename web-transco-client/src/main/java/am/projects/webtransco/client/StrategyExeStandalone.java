@@ -45,17 +45,24 @@ public class StrategyExeStandalone extends AbstractExecutionStrategy {
         //  Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
 
         //Buiding a Connection
-        logger.debug("Get connection for data store"+datastore.getUrl());
+        logger.debug("Get connection for data store" + datastore.getUrl());
         Connection mConn = DriverManager.getConnection(datastore.getUrl(), datastore.getUser(), datastore.getPassword());
 
         return mConn;
     }
 
     @Override
-    public Cache retrieveCache() {
+    public Cache retrieveCache(String cacheName) {
+        Cache cache = null;
         if (manager != null) {
-            return manager.getCache(TRANSCO_CACHE);
+            if (cacheName == null || cacheName.equals("")) {
+                logger.debug("Use default cache " + TRANSCO_CACHE);
+                cache = manager.getCache(TRANSCO_CACHE);
+
+            } else {
+                cache = manager.getCache(cacheName);
+            }
         }
-        return null;
+        return cache;
     }
 }

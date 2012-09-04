@@ -11,6 +11,7 @@ public class WMInput {
     private List<ListCall> calls;
     private List<String> defaultValues;
     private String datastoreAlias;
+    private String cacheName; //optional
     private boolean throwException;
 
     public WMInput(List<ListCall> calls,  List<String> defaultValues, String datastoreAlias, boolean throwException) {
@@ -55,12 +56,21 @@ public class WMInput {
         this.defaultValues = defaultValues;
     }
 
+    public String getCacheName() {
+        return cacheName;
+    }
+
+    public void setCacheName(String cacheName) {
+        this.cacheName = cacheName;
+    }
+
     @Override
     public String toString() {
         return "WMInput{" +
                 "calls=" + calls +
                 ", defaultValues=" + defaultValues +
                 ", datastoreAlias='" + datastoreAlias + '\'' +
+                ", cacheName='" + cacheName + '\'' +
                 ", throwException=" + throwException +
                 '}';
     }

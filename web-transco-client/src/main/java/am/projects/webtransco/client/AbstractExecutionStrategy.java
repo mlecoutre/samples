@@ -142,14 +142,15 @@ public abstract class AbstractExecutionStrategy implements ExecutionStrategy {
      * transco output values
      *
      * @param dataStoreAliasName alias of the transco repository
+     * @param cacheName name of cache. if null or empty, use a default implementation or not at all.
      * @param throwException     boolean to know if we have to throw exception if no value are found
      * @param parameters         input parameters
      * @param defaultValues      default values to return if no value are found.
      * @return transco output values
      */
     @Override
-    public List<ListResponse> callTranscoWithCache(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
-        Cache cache = retrieveCache();
+    public List<ListResponse> callTranscoWithCache(String dataStoreAliasName, String cacheName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
+        Cache cache = retrieveCache(cacheName);
         List<ListResponse> lr = new ArrayList<ListResponse>();
         int index = 0;
 

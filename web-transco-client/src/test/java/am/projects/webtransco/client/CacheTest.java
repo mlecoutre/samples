@@ -2,6 +2,7 @@ package am.projects.webtransco.client;
 
 import am.projects.webtransco.client.model.ListCall;
 import am.projects.webtransco.client.model.ListResponse;
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.config.CacheConfiguration;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * User: E010925
@@ -56,7 +57,9 @@ public class CacheTest {
         params.add("ArcelorMittal.Logistic.Metris.LCE.EndPoint.BelvalWS.ReceiveLogisticEvent");
         ListCall lc = new ListCall("Metris.DetermineWebServiceUrl.METRISTransformTransco001", params);
         calls.add(lc);
-        TranscoClient.getInstance().getExeStrategy().retrieveCache().removeAll();
+
+        Cache cache = TranscoClient.getInstance().getExeStrategy().retrieveCache("");
+        cache.removeAll();
         for (int i = 0; i < 10; i++) {
 
             List<ListResponse> results = null;

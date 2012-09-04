@@ -112,8 +112,13 @@ public class WMTranscoClient {
 
     }
 
-    public static boolean cleanCache() {
-        return TranscoClient.cleanCache();
+    /**
+     * Clean the cache given in parameter or the default one if cacheName if null or empty
+     * @param cacheName  name of the cache to clean
+     * @return boolean value
+     */
+    public static boolean cleanCache(String cacheName) {
+        return TranscoClient.cleanCache(cacheName);
     }
 
     public static void callTranscoWithCache(IData pipeline) throws ServiceException {
@@ -121,7 +126,7 @@ public class WMTranscoClient {
         List<ListResponse> lResponses = null;
         WMInput input = wrapInputs(pipeline);
         try {
-            lResponses = TranscoClient.callTranscoWithCache(input.getDatastoreAlias(), input.isThrowException(), input.getCalls(), input.getDefaultValues());
+            lResponses = TranscoClient.callTranscoWithCache(input.getDatastoreAlias(), input.getCacheName(), input.isThrowException(), input.getCalls(), input.getDefaultValues());
         } catch (NoResultException nre) {
             if (input.isThrowException()) {
                 throw new ServiceException(nre.getMessage());

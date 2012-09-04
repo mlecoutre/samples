@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class TranscoClient {
 
-    private static Logger logger= LoggerFactory.getLogger(TranscoClient.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(TranscoClient.class.getName());
 
     public static final String MODE_STANDALONE = "modestandalone";
     public static final String MODE_WM = "modewm";
@@ -48,6 +48,12 @@ public class TranscoClient {
     }
 
 
+    /**
+     * Read the configuration file (transco-configuration.xml to get list of datastore)
+     * and inializare TranscoContext
+     *
+     * @return TranscoContext
+     */
     public TranscoContext initConfiguration() {
 
 
@@ -70,10 +76,10 @@ public class TranscoClient {
                 mapDatastores.put(alias, datastore);
             }
             context.setDatastores(mapDatastores);
-            logger.debug("InitConfiguration: found "+mapDatastores.size() +" data stores.");
+            logger.debug("InitConfiguration: found " + mapDatastores.size() + " data stores.");
 
         } catch (ConfigurationException e) {
-            logger.error("ERROR initConfiguration",e);
+            logger.error("ERROR initConfiguration", e);
         }
         return context;
     }
@@ -136,9 +142,22 @@ public class TranscoClient {
      * @return List<ListResponse>
      */
     public static List<ListResponse> callTranscoWithCache(String dataStoreAliasName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
+        return callTranscoWithCache(dataStoreAliasName, "", throwException, parameters, defaultValues);
+
+    }
+
+    /**
+     * @param dataStoreAliasName Transco_TBO, Transco_DOMCOM, Transco_BOSS
+     * @param cacheName          optional
+     * @param throwException     boolean value
+     * @param parameters         list of input parameters
+     * @param defaultValues      list of default values
+     * @return List<ListResponse>
+     */
+    public static List<ListResponse> callTranscoWithCache(String dataStoreAliasName, String cacheName, boolean throwException, List<ListCall> parameters, List<String> defaultValues) throws NoResultException {
 
         try {
-            return TranscoClient.getInstance().getExeStrategy().callTranscoWithCache(dataStoreAliasName, throwException, parameters, defaultValues);
+            return TranscoClient.getInstance().getExeStrategy().callTranscoWithCache(dataStoreAliasName, cacheName, throwException, parameters, defaultValues);
         } catch (NoResultException nre) {
             if (throwException) {
                 throw nre;
@@ -164,13 +183,13 @@ public class TranscoClient {
      *
      * @return true.
      */
-    public static boolean cleanCache() {
-        getInstance().getExeStrategy().retrieveCache().removeAll();
+    public static boolean cleanCache(String cacheName) {
+        getInstance().getExeStrategy().retrieveCache(cacheName).removeAll();
         return true;
     }
 
     public ExecutionStrategy getExeStrategy() {
-        if (exeStrategy == null){
+        if (exeStrategy == null) {
             ExecutionStrategy strategy = getInstance().initStrategy("");
         }
         return exeStrategy;
