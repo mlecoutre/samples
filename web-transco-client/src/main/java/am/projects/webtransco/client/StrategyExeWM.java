@@ -25,7 +25,7 @@ public class StrategyExeWM extends AbstractExecutionStrategy {
 
     public static final String DATASTORE_CONNECTION_PACKAGE = "awmf.transco.connections";
     public static final String DATASTORE_EXECUTE_SERVICE = "retrieveTranscoConnection";
-    private static CacheManager cm = null;
+    private static CacheManager cacheManager = null;
 
     public StrategyExeWM() {
     }
@@ -60,10 +60,11 @@ public class StrategyExeWM extends AbstractExecutionStrategy {
     public Cache retrieveCache(String cacheName) {
         Cache cache = null;
         boolean isCMFound = false;
-        if (cm == null) {
+        if (cacheManager == null) {
             for (CacheManager cm : CacheManager.ALL_CACHE_MANAGERS) {
                 if (TRANSCO_CACHE_MANAGER.equals(cm.getName())) {
                     isCMFound = true;
+                    cacheManager = cm;
                     break;
                 }
             }
@@ -73,8 +74,8 @@ public class StrategyExeWM extends AbstractExecutionStrategy {
                 JournalLogger.log(JournalLogger.WARNING, JournalLogger.FAC_FLOW_SVC, JournalLogger.WARNING, "[TRANSCO]CacheManager HAS NOT BEEN FOUND on the Integration Server");
             }
         }
-        if (cm != null) {
-            cache = cm.getCache(TRANSCO_CACHE);
+        if (cacheManager != null) {
+            cache = cacheManager.getCache(TRANSCO_CACHE);
             if (cache == null) {
                 //should not be null if cm has been found (maybe configuration error)
                 JournalLogger.log(JournalLogger.ERROR, JournalLogger.FAC_FLOW_SVC, JournalLogger.ERROR, "[TRANSCO] NO CACHE INSTANCE  FOUND. Please configure cache for the transco application.");
