@@ -1,2 +1,7 @@
 .DS_Store
 event-utility/event-utility.iml
+**/target
+**/.idea
+**/*.iml
+mongodb-sample/.idea
+mongodb-sample/*.iml

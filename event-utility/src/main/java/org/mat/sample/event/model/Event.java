@@ -1,4 +1,4 @@
-package org.mat.sample.event;
+package org.mat.sample.event.model;
 
 import java.util.Date;
 import javax.persistence.Column;

@@ -1,10 +1,15 @@
-package org.mat.sample.event.server;
+package org.mat.sample.event.services;
 
-import org.mat.sample.event.Event;
+import org.mat.sample.event.model.Event;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
+import com.google.inject.Inject;
+
+import javax.persistence.EntityManager;
 
 /**
  * User: mlecoutre
@@ -12,6 +17,10 @@ import java.util.List;
  * Time: 19:43
  */
 public class EventService {
+
+    @Inject
+    EntityManager em;
+
 
     public List<Event> list() {
         List<Event> Events = new ArrayList<Event>();
@@ -24,8 +33,8 @@ public class EventService {
     }
 
     public boolean create(Event event) {
-
-        return false;
+        em.persist(event);
+        return true;
     }
 
 
