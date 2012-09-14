@@ -14,8 +14,8 @@ public class App
 
     {
 
-// or
-        Mongo m = new Mongo( "localhost" , 27017 );
+// or dun-tst-devf01
+        Mongo m = new Mongo( "dun-tst-devf01" , 27017 );
 // or, to connect to a replica set, supply a seed list of members
 //        Mongo m = new Mongo(Arrays.asList(new ServerAddress("localhost", 27017),
 //                new ServerAddress("localhost", 27018),
@@ -25,18 +25,18 @@ public class App
 
         BasicDBObject doc = new BasicDBObject();
 
-        doc.put("name", "MongoDB");
-        doc.put("type", "database");
-        doc.put("count", 1);
+        doc.put("firstname", "matthieu");
+        doc.put("lastname", "lecoutre");
 
-        BasicDBObject info = new BasicDBObject();
 
-        info.put("x", 203);
-        info.put("y", 102);
+//        BasicDBObject info = new BasicDBObject();
+//
+//        info.put("x", 203);
+//        info.put("y", 102);
+//
+//        doc.put("info", info);
 
-        doc.put("info", info);
-
-        DBCollection coll = db.getCollection("testCollection");
+        DBCollection coll = db.getCollection("persons");
 
         coll.insert(doc);
         DBObject myDoc = coll.findOne();

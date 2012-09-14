@@ -59,7 +59,7 @@ public class Event {
 		this.title = title;
     }
 
-    @Column(name = "EVENT-EMITTER")
+    @Column(name = "EVENT_EMITTER")
     public String getEmitter() {
         return emitter;
     }

@@ -1,17 +1,15 @@
 package org.mat.sample;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.persist.jpa.JpaPersistModule;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mat.sample.event.services.EventService;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * User: mlecoutre
@@ -19,31 +17,34 @@ import javax.persistence.Persistence;
  * Time: 14:23
  */
 @RunWith(GuiceTestRunner.class)
+@GuiceTestRunner.GuiceModules({EventServiceModule.class})
 public class EventServiceTest {
 
-    private static EntityManager em;
+    @Inject
+  EventService eventService;
 
-    private static EntityManagerFactory emf;
+
 
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        emf = Persistence.createEntityManagerFactory("sample");
-        em = emf.createEntityManager();
-        Injector injector = Guice.createInjector(new JpaPersistModule("default"), new EventModule());
+      //  emf = Persistence.createEntityManagerFactory("sample");
+      //  em = emf.createEntityManager();
+      //  Injector injector = Guice.createInjector(new JpaPersistModule("default"), new EventModule());
 
     }
 
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
-        em.close();
-        emf.close();
+
     }
 
-    static class EventModule extends AbstractModule {
-        protected void configure() {
-            bind(EventService.class).toInstance(new EventService());
-        }
+    @Test
+    public void testJPAModule(){
+         assertTrue("EventService should not be null", eventService != null);
+
     }
+
+
 
 }
