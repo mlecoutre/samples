@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="basePanel" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="456.0" styleClass="basePanel" xmlns:fx="http://javafx.com/fxml" fx:controller="org.mat.sample.event.ui.EventPanelController">
+  <children>
+    <ProgressBar layoutX="21.0" layoutY="114.0" prefWidth="166.0" progress="0.0" />
+    <Button layoutX="21.0" layoutY="73.0" mnemonicParsing="false" text="Generate Events" />
+    <TextField fx:id="nbEvents" layoutX="140.0" layoutY="37.0" prefWidth="47.0" />
+    <Label layoutX="21.0" layoutY="40.0" text="Nombre d'events" />
+  </children>
+  <stylesheets>
+    <URL value="@../css/MainView.css" />
+  </stylesheets>
+</AnchorPane>

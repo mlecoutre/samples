@@ -1,4 +1,4 @@
-package org.mat.sample.event;
+package org.mat.sample.event.model;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -59,7 +59,7 @@ public class Event {
 		this.title = title;
     }
 
-    @Column(name = "EVENT-EMITTER")
+    @Column(name = "EVENT_EMITTER")
     public String getEmitter() {
         return emitter;
     }

@@ -2,3 +2,5 @@
 UserUtility.iml
 .DS_Store
 /target
+**/*.bak
+

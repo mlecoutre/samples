@@ -1,4 +1,12 @@
-**/target/*
-**/.idea/*
+.DS_Store
+event-utility/event-utility.iml
+**/target
+**/.idea
 **/*.iml
 target/
+mongodb-sample/.idea
+mongodb-sample/*.iml
+sample-xslt/.idea
+sample-xslt/*.iml
+
+

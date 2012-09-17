@@ -31,7 +31,7 @@
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
 
-        <class>org.mat.sample.event.Event</class>
+        <class>org.mat.sample.event.model.Event</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

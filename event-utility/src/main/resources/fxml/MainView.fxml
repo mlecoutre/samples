@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?scenebuilder-background-color 0x404040ff?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="javafxapplication1.Sample">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.mat.sample.event.ui.MainViewController">
   <children>
-    <SplitPane id="mySplitPane" dividerPositions="0.28929765886287623" focusTraversable="true" layoutX="1.0" layoutY="24.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="376.0" prefWidth="600.0" style="width:100%">
+    <SplitPane id="mySplitPane" fx:id="splitPane" dividerPositions="0.28929765886287623" focusTraversable="true" layoutX="1.0" layoutY="24.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="376.0" prefWidth="600.0" style="width:100%">
       <items>
         <Accordion maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="147.0" prefHeight="374.0" prefWidth="147.0">
           <expandedPane>
@@ -18,8 +20,8 @@
               <content>
                 <AnchorPane id="Content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                    <Button id="custom-button" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#doClickMe" prefWidth="84.0" text="ClickMe" />
-                    <Button id="button" layoutX="17.0" layoutY="48.0" mnemonicParsing="false" prefWidth="84.0" text="Button" />
+                    <Button id="custom-button" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#doClickMe" prefWidth="105.0" text="Send Events" />
+                    <Button id="button" layoutX="17.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleButtonAction" prefWidth="102.0" text="Button" />
                   </children>
                 </AnchorPane>
               </content>
@@ -39,7 +41,18 @@
             </TitledPane>
           </panes>
         </Accordion>
-        <AnchorPane id="basePanel" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="456.0" styleClass="basePanel" />
+        <AnchorPane id="basePanel" fx:id="mainPane" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="456.0" styleClass="basePanel">
+          <children>
+            <Label fx:id="label" layoutX="127.0" layoutY="53.0" text="Event's App">
+              <font>
+                <Font size="30.0" />
+              </font>
+            </Label>
+          </children>
+          <stylesheets>
+            <URL value="@../css/MainView.css" />
+          </stylesheets>
+        </AnchorPane>
       </items>
     </SplitPane>
     <MenuBar prefHeight="22.0" prefWidth="600.0" AnchorPane.bottomAnchor="378.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
@@ -56,7 +69,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About" />
             <MenuItem mnemonicParsing="false" style="" text="Updates" />
           </items>
         </Menu>

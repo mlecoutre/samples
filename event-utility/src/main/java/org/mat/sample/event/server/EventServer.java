@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.persist.jpa.JpaPersistModule;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.jersey.api.core.DefaultResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
@@ -11,6 +12,8 @@ import com.sun.jersey.core.spi.component.ioc.IoCComponentProviderFactory;
 import com.sun.jersey.guice.spi.container.GuiceComponentProviderFactory;
 import com.sun.net.httpserver.HttpServer;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import org.mat.sample.event.services.EventService;
+
 import static com.google.inject.Guice.createInjector;
 import static com.google.inject.util.Modules.override;
 /**
@@ -40,8 +43,8 @@ public class EventServer extends AbstractIdleService {
                 EventResource.class, JacksonJsonProvider.class);
 
         Module module = override(new EventModule()).with(modules);
-        Injector injector = createInjector(module);
-
+        Injector injector = createInjector(module, new JpaPersistModule("default"));
+        injector.getInstance(ApplicationInitializer.class);
         IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(
                 config, injector);
 

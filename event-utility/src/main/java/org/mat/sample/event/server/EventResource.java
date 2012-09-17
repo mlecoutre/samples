@@ -2,7 +2,8 @@ package org.mat.sample.event.server;
 
 import com.google.inject.Inject;
 import com.sun.jersey.api.NotFoundException;
-import org.mat.sample.event.Event;
+import org.mat.sample.event.model.Event;
+import org.mat.sample.event.services.EventService;
 
 import java.io.File;
 import java.net.URI;

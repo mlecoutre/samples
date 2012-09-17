@@ -30,7 +30,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import junit.framework.TestCase;
-import org.mat.sample.event.Event;
+import org.mat.sample.event.model.Event;
 
 /**
  * Illustrates basic use of Hibernate as a JPA provider.

@@ -1,0 +1,18 @@
+
+root {
+    display: block;
+}
+
+.root {
+     -fx-background-image: url("../images/background.jpg");
+}
+
+.basePanel  {
+     -fx-background-image: url("../images/background.jpg");
+ }
+
+.custom-button {
+    -fx-font: 16px "Serif";
+    -fx-padding: 10;
+    -fx-background-color: red;
+}

@@ -7,8 +7,8 @@
   <version>1.0</version>
   <packaging>jar</packaging>
 
-  <name>user-utility</name>
-  <url>http://maven.apache.org</url>
+  <name>event-utility</name>
+  <url>http://web-java</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -83,6 +83,13 @@
             <artifactId>guice</artifactId>
             <version>3.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-persist</artifactId>
+            <version>3.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.sun.jersey.contribs</groupId>
             <artifactId>jersey-guice</artifactId>
