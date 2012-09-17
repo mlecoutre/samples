@@ -1,0 +1,20 @@
+<ehcache
+        name="TranscoCacheManager"
+        updateCheck="false">
+    <diskStore
+            path="./target/TranscoCacheManager">
+    </diskStore>
+    <defaultCache
+            eternal="false"
+            maxElementsInMemory="0"
+            overflowToDisk="false">
+    </defaultCache>
+    <cache
+            name="TranscoCache"
+            eternal="false"
+            maxElementsInMemory="10009"
+            overflowToDisk="false"
+            timeToLiveSeconds="86400"
+            cacheLoaderTimeoutMillis="30000">
+    </cache>
+</ehcache>
