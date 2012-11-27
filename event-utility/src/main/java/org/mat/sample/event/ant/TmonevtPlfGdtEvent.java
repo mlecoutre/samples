@@ -1,5 +1,7 @@
 package org.mat.sample.event.ant;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -43,8 +45,8 @@ public class TmonevtPlfGdtEvent implements Serializable {
 	@Column(name="IDUM")
 	private String idum;
 
-	@Column(name="[MESSAGE]")
-	private Object message;
+    @Lob @Column(columnDefinition="NTEXT NULL")
+	private String message;
 
 	@Column(name="NUMAPG")
 	private String numapg;
@@ -73,7 +75,9 @@ public class TmonevtPlfGdtEvent implements Serializable {
 	@Column(name="REFCOMDEMA")
 	private String refcomdema;
 
-	@Column(name="[UID]")
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="[UID]", columnDefinition="uniqueidentifier")
 	private String uid;
 
 	@Column(name="USRID")
@@ -160,11 +164,11 @@ public class TmonevtPlfGdtEvent implements Serializable {
 		this.idum = idum;
 	}
 
-	public Object getMessage() {
+	public String getMessage() {
 		return this.message;
 	}
 
-	public void setMessage(Object message) {
+	public void setMessage(String message) {
 		this.message = message;
 	}
 
@@ -272,4 +276,32 @@ public class TmonevtPlfGdtEvent implements Serializable {
 		this.valeur = valeur;
 	}
 
+    @Override
+    public String toString() {
+        return "TmonevtPlfGdtEvent{" +
+                "techId=" + techId +
+                ", appName='" + appName + '\'' +
+                ", cle='" + cle + '\'' +
+                ", currentservicename='" + currentservicename + '\'' +
+                ", currentutname='" + currentutname + '\'' +
+                ", datetime=" + datetime +
+                ", functionname='" + functionname + '\'' +
+                ", hostName='" + hostName + '\'' +
+                ", idum='" + idum + '\'' +
+                ", message='" + message + '\'' +
+                ", numapg='" + numapg + '\'' +
+                ", numbcc='" + numbcc + '\'' +
+                ", numde=" + numde +
+                ", numgamme=" + numgamme +
+                ", numordreapl=" + numordreapl +
+                ", numordrepal=" + numordrepal +
+                ", numpaf=" + numpaf +
+                ", numtiers='" + numtiers + '\'' +
+                ", refcomdema='" + refcomdema + '\'' +
+                ", uid='" + uid + '\'' +
+                ", usrid='" + usrid + '\'' +
+                ", utname='" + utname + '\'' +
+                ", valeur='" + valeur + '\'' +
+                '}';
+    }
 }

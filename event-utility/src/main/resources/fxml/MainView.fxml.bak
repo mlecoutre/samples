@@ -43,7 +43,7 @@
         </Accordion>
         <AnchorPane id="basePanel" fx:id="mainPane" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="453.0" styleClass="basePanel">
           <children>
-            <Label fx:id="label" layoutX="145.0" layoutY="47.0" text="Event's App">
+            <Label fx:id="label" layoutX="145.0" layoutY="169.0" text="Event's App">
               <font>
                 <Font size="30.0" />
               </font>

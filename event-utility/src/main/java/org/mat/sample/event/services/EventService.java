@@ -34,6 +34,8 @@ public class EventService {
 
     public boolean create(Event event) {
         em.persist(event);
+        System.out.println("Create event");
+
         return true;
     }
 

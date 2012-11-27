@@ -55,4 +55,12 @@ public class TmonevtMappingPK implements Serializable {
 		
 		return hash;
     }
+
+    @Override
+    public String toString() {
+        return "TmonevtMappingPK{" +
+                "cdevt=" + cdevt +
+                ", mapId=" + mapId +
+                '}';
+    }
 }

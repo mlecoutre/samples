@@ -26,9 +26,5 @@ public class EventUIApp extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.getScene().getStylesheets().add(getClass().getResource("/css/MainView.css").toExternalForm());
         primaryStage.show();
-//        final Stage dialog = new Stage(StageStyle.TRANSPARENT);
-//        dialog.initModality(Modality.WINDOW_MODAL);
-//        dialog.initOwner(primaryStage);
-//        Parent aboutPanel = FXMLLoader.load(getClass().getResource("/fxml/aboutPanel.fxml"));
     }
 }

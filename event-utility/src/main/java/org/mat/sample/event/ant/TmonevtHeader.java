@@ -16,7 +16,7 @@ public class TmonevtHeader implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="[UID]")
+	@Column(name="[UID]", columnDefinition="uniqueidentifier")
 	private String uid;
 
 	@Column(name="APP_NAME")

@@ -74,5 +74,14 @@ public class TmonevtCdevt implements Serializable {
 	public void setTmonevtMappings(Set<TmonevtMapping> tmonevtMappings) {
 		this.tmonevtMappings = tmonevtMappings;
 	}
-	
+
+    @Override
+    public String toString() {
+        return "TmonevtCdevt{" +
+                "cdevt=" + cdevt +
+                ", parserClass='" + parserClass + '\'' +
+                ", tableName='" + tableName + '\'' +
+                ", typeEvt='" + typeEvt + '\'' +
+                '}';
+    }
 }

@@ -26,7 +26,28 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-    <persistence-unit name="org.hibernate.tutorial.jpa">
+    <persistence-unit name="antares">
+        <class>TmonevtAjfMonitoring</class>
+        <class>TmonevtAjfMonitoringPK</class>
+        <class>TmonevtCdevt</class>
+        <class>TmonevtHeader</class>
+        <class>TmonevtMapping</class>
+        <class>TmonevtMappingPK</class>
+        <class>TmonevtPlfGdtEvent</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://DUN-APP-MSSQL04:1433;databaseName=MONEVT"/>
+            <property name="javax.persistence.jdbc.user" value="monevt_user" />
+            <property name="javax.persistence.jdbc.password" value="MonevtUser01" />
+
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="validate" />
+        </properties>
+
+    </persistence-unit>
+
+    <persistence-unit name="default">
         <description>
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>

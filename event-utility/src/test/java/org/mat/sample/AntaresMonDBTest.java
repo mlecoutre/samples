@@ -23,14 +23,15 @@
  */
 package org.mat.sample;
 
-import java.util.Date;
-import java.util.List;
+import junit.framework.TestCase;
+import org.mat.sample.event.ant.TmonevtCdevt;
+import org.mat.sample.event.model.Event;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-import junit.framework.TestCase;
-import org.mat.sample.event.model.Event;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Illustrates basic use of Hibernate as a JPA provider.
@@ -44,7 +45,7 @@ public class AntaresMonDBTest extends TestCase {
 	protected void setUp() throws Exception {
 		// like discussed with regards to SessionFactory, an EntityManagerFactory is set up once for an application
 		// 		IMPORTANT: notice how the name here matches the name we gave the persistence-unit in persistence.xml!
-		entityManagerFactory = Persistence.createEntityManagerFactory( "default" );
+		entityManagerFactory = Persistence.createEntityManagerFactory( "antares" );
 	}
 
 	@Override
@@ -56,18 +57,10 @@ public class AntaresMonDBTest extends TestCase {
 		// create a couple of events...
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		entityManager.persist( new Event( "Our very first event!", new Date() ) );
-		entityManager.persist( new Event( "A follow up event", new Date() ) );
-		entityManager.getTransaction().commit();
-		entityManager.close();
-
-		// now lets pull events from the database and list them
-		entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-        List<Event> result = entityManager.createQuery( "from Event", Event.class ).getResultList();
-		for ( Event event : result ) {
-			System.out.println( "Event (" + event.getDate() + ") : " + event.getTitle() );
-		}
+	    List<TmonevtCdevt>  cds = entityManager.createQuery("FROM TmonevtCdevt").getResultList();
+        for(TmonevtCdevt cd : cds){
+            System.out.println("> "+cd);
+        }
         entityManager.getTransaction().commit();
         entityManager.close();
 	}

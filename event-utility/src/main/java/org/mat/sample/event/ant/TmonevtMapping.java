@@ -23,8 +23,8 @@ public class TmonevtMapping implements Serializable {
 	private String propertyName;
 
 	//bi-directional many-to-one association to TmonevtCdevt
-    @ManyToOne
-	@JoinColumn(name="CDEVT")
+    @ManyToOne()
+	@JoinColumn(name="CDEVT", updatable = false, insertable = false)
 	private TmonevtCdevt tmonevtCdevt;
 
     public TmonevtMapping() {
@@ -61,5 +61,14 @@ public class TmonevtMapping implements Serializable {
 	public void setTmonevtCdevt(TmonevtCdevt tmonevtCdevt) {
 		this.tmonevtCdevt = tmonevtCdevt;
 	}
-	
+
+    @Override
+    public String toString() {
+        return "TmonevtMapping{" +
+                "id=" + id +
+                ", columnName='" + columnName + '\'' +
+                ", propertyName='" + propertyName + '\'' +
+                ", tmonevtCdevt=" + tmonevtCdevt +
+                '}';
+    }
 }

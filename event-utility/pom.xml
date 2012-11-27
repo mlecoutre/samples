@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.mat.sample</groupId>
-  <artifactId>event-utility</artifactId>
-  <version>1.0</version>
-  <packaging>jar</packaging>
+    <groupId>org.mat.sample</groupId>
+    <artifactId>event-utility</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
 
-  <name>event-utility</name>
-  <url>http://web-java</url>
+    <name>event-utility</name>
+    <url>http://web-java</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <repositories>
         <repository>
@@ -116,38 +116,69 @@
         </dependency>
 
         <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-core</artifactId>
-      <version>4.1.4.Final</version>
-      </dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.1.4.Final</version>
+        </dependency>
 
 
-      <dependency>
-          <groupId>org.hibernate</groupId>
-          <artifactId>hibernate-entitymanager</artifactId>
-          <version>4.1.4.Final</version>
-      </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.1.4.Final</version>
+        </dependency>
 
-      <!-- Hibernate uses jboss-logging for logging, for the tutorials we will use the sl4fj-simple backend -->
-      <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
-          <version>1.6.1</version>
-      </dependency>
+        <!-- Hibernate uses jboss-logging for logging, for the tutorials we will use the sl4fj-simple backend -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.6.1</version>
+        </dependency>
 
-      <!-- The tutorials use JUnit test cases to illustrate usage -->
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.10</version>
-      </dependency>
+        <!-- The tutorials use JUnit test cases to illustrate usage -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+        </dependency>
 
-      <!-- The tutorials use the H2 in-memory database -->
-      <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <version>1.2.145</version>
-      </dependency>
+        <!-- The tutorials use the H2 in-memory database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.2.145</version>
+        </dependency>
 
-  </dependencies>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx</artifactId>
+            <version>2.0</version>
+            <systemPath>${javafx.rt.jar}</systemPath>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>amresources.microsoft.driver.sqlserver</groupId>
+            <artifactId>sqljdbc</artifactId>
+            <version>5.0</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <executable>${env.JDK_HOME}/bin/javac.exe</executable>
+                </configuration>
+
+            </plugin>
+
+        </plugins>
+
+
+    </build>
 </project>
