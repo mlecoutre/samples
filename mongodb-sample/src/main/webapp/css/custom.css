@@ -71,3 +71,8 @@ label.error {
 }
 
 .ui-progressbar .ui-progressbar-value { background-image: url(/img/pbar-ani.gif); }
+
+.done-true {
+  text-decoration: line-through;
+  color: grey;
+}

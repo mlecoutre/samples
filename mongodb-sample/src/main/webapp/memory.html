@@ -20,18 +20,19 @@
 
             <ul class="nav">
                 <li><a href="/" data-i18n="commons:navbar.home"></a></li>
-                <li><a href="/about" data-i18n="commons:navbar.about"></a></li>
-                <li><a href="#contact" data-i18n="commons:navbar.contact"></a></li>
+
+                <li><a href="/loader.html">Loading</a></li>
                 <li class="dropdown">
-                    <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Actions<b
+                    <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Reporting<b
                             class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
-                        <li><a tabindex="-1" href="datasource.html">Datasources</a>
+                        <li><a tabindex="-1" href="datasource.html">DataSources</a>
                         </li>
-                        <li><a tabindex="-1" href="memory.html" >Memory</a></li>
-                        <li><a tabindex="-1" href="thread.html" >Threads</a></li>
+                        <li><a tabindex="-1" href="memory.html">Memory</a></li>
+                        <li><a tabindex="-1" href="thread.html">Threads</a></li>
                     </ul>
                 </li>
+                <li><a href="/about.html">About</a></li>
             </ul>
 
             <p class="navbar-text pull-right" id="authBox">
@@ -56,31 +57,74 @@
 
     <p>&nbsp;</p><br/>
 
-    <h2 class="report"> Steel User reports - JEE Resources</h2>
+    <h2 class="report">JEE Resources - Memory</h2>
 
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                    Filter criteria...
+                </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <div class="row">
+                        <div class="span4">
+                            <label for="selApplicationName">Application Name<input type="text" id="selApplicationName"
+                                                                                   list="applications"> </label>
+                            <datalist id="applications">
+                                <option value="SteelUser">
+                            </datalist>
+                        </div>
+                        <div class="span4">
+                            <label for="selAS">AS<input type="text" id="selAS" list="ass"/> </label>
+                            <datalist id="ass">
+                                <option value="AS_STEELUSER">
+                                <option value="AS_STEELUSER_TRAINEE">
+                                <option value="AS_STEELUSER">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <label for="selServer">Servers<input type="text" id="selServer" list="servers"> </label>
+                        <datalist id="servers">
+                            <option value="appcfm51">
+                            <option value="appcfm52">
+                            <option value="appstu52">
+                        </datalist>
+                    </div>
+                    <div class="btn-group">
+                        <input type="button" id="display" class="btn btn-primary" value="Display"/>
+                        <input type="button" id="clear" class="btn" value="Clear"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="memoryContainer" style="width:1000px; height:500px">
 
     </div>
 </div>
 
-    <div>
-        <footer>
-            <p>&copy; Mat 2012</p>
-        </footer>
+<div>
+    <footer>
+        <p>&copy; Mat 2012</p>
+    </footer>
 
-    </div>
-    <!-- /container -->
+</div>
+<!-- /container -->
 
-    <!-- Le javascript
-   ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="/lib/js/jquery.json-2.3.js"></script>
-    <script src="/lib/js/highstock.js"></script>
-    <script src="/lib/js/highcharts-more.js"></script>
-    <script type="text/javascript" src="/lib/js/themes/gray.js"></script>
-    <script src="/lib/js/modules/exporting.js"></script>
-    <script src="/js/stu.js"></script>
+<script src="/lib/js/jquery.json-2.3.js"></script>
+<script src="/lib/js/highstock.js"></script>
+<script src="/lib/js/highcharts-more.js"></script>
+<script type="text/javascript" src="/lib/js/themes/gray.js"></script>
+<script src="/lib/js/modules/exporting.js"></script>
+<script src="/js/utilities.js"></script>
+<script src="/js/memory.js"></script>
 
 </body>
 </html>

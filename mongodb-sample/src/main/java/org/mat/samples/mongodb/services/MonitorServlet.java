@@ -19,15 +19,24 @@ public class MonitorServlet extends HttpServlet {
         try {
 
             String action = request.getParameter("action");
+            String as = request.getParameter("as");
+            String server = request.getParameter("server");
+            String applicationName = request.getParameter("applicationName");
+
             response.setContentType("application/json");
             if ("available-memory".equals(action)) {
-                MonitorService.requestMemory(Constants.MEM_AVAILABLE, "appcfm51", response.getOutputStream());
+                MonitorService.requestMemory(Constants.MEM_AVAILABLE, applicationName, server, as, response.getOutputStream());
             } else if ("total-memory".equals(action)) {
-                MonitorService.requestMemory(Constants.MEM_TOTAL, "appcfm51", response.getOutputStream());
+                MonitorService.requestMemory(Constants.MEM_TOTAL, applicationName, server, as, response.getOutputStream());
             } else if ("free-memory".equals(action)) {
-                MonitorService.requestMemory(Constants.MEM_FREE, "appcfm51", response.getOutputStream());
+                MonitorService.requestMemory(Constants.MEM_FREE, applicationName, server, as, response.getOutputStream());
             } else if ("max-memory".equals(action)) {
-                MonitorService.requestMemory(Constants.MEM_MAX, "appcfm51", response.getOutputStream());
+                MonitorService.requestMemory(Constants.MEM_MAX, applicationName, server, as, response.getOutputStream());
+            } else if ("ds-used-connections".equals(action)) {
+                String ds = request.getParameter("dataSource");
+                MonitorService.requestUsedConnection(ds, applicationName, server, as, response.getOutputStream());
+            } else if ("threads".equals(action)) {
+                MonitorService.requestTotalThreads(applicationName, server, as, response.getOutputStream());
             }
             response.flushBuffer();
         } catch (Exception e) {

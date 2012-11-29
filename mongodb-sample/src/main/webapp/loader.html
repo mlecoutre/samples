@@ -1,0 +1,101 @@
+<!doctype html>
+<html ng-app>
+<head>
+
+    <link rel="stylesheet" href="/lib/css/jquery-ui-1.9.1.custom.min.css" type="text/css"/>
+    <link href="/lib/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <a class="brand" href="/">Reports App</a>
+
+
+            <ul class="nav">
+                <li><a href="/" data-i18n="commons:navbar.home"></a></li>
+
+                <li><a href="/loader.html">Loading</a></li>
+                <li class="dropdown">
+                    <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Reporting<b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                        <li><a tabindex="-1" href="datasource.html">DataSources</a>
+                        </li>
+                        <li><a tabindex="-1" href="memory.html">Memory</a></li>
+                        <li><a tabindex="-1" href="thread.html">Threads</a></li>
+                    </ul>
+                </li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+
+            <p class="navbar-text pull-right" id="authBox">
+
+            </p>
+
+            <p class="navbar-text pull-right hide" id="loadingIndicator">
+                <img src="../img/ajax-loader.gif"/>
+            </p>
+
+            <p class="navbar-text pull-right hide" id="authBox_request">
+                <input class="span2" type="text" id="uid" placeholder="Email">
+                <input class="span2" type="password" id="password" placeholder="Password">
+                <button type="submit" class="btn sign-in" id="signIn" data-i18n="commons:auth.signin"></button>
+            </p>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Todo</h2>
+
+    <div ng-controller="LoaderCtrl">
+
+        <label for="applicationName">Application Name<input type="text" id="applicationName" cc list="applications" ng-model="applicationName">
+        </label>
+        <datalist id="applications">
+            <option value="SteelUser">
+        </datalist>
+        <div class="well">
+            <span>{{files.length}} file(s) to load</span>
+            <ul class="unstyled">
+                <li ng-repeat="file in files">
+                    <input type="checkbox" ng-model="file.fileDone">
+                    <span class="file-{{file.done}}">{{file.fileName}}</span>
+                </li>
+            </ul>
+            <form ng-submit="addFile()">
+                <input type="text" ng-model="fileText" size="30"
+                       placeholder="http//server/log/../j2eeMonitoring.log">
+                <input class="btn" type="submit" value="add">
+        </div>
+        </form>
+        <a href="" ng-click="load()" class="btn btn-primary">Load on server</a>
+        <p> &nbsp;
+        <div id="info" class="alert alert-success hide">
+
+        </div>
+        </p>
+    </div>
+</div>
+
+<div>
+    <footer>
+        <p>&copy; Mat 2012</p>
+    </footer>
+
+</div>
+<!-- /container -->
+
+
+<script src="/lib//js/jquery-1.8.2.js"></script>
+<script src="/lib/js/jquery-ui-1.9.1.custom.min.js"></script>
+<script src="/lib/js/bootstrap.min.js"></script>
+<script src="/lib/js/angular.min.js"></script>
+<script src="/js/loader.js"></script>
+</body>
+</html>

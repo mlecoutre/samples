@@ -14,5 +14,6 @@ public interface Constants {
     public static final String MEM_MAX = "max_memory";
     public static final String MEM_TOTAL = "total_memory";
     public static final String MEM_AVAILABLE = "available_memory";
+    public static final String THREADS = "total_threads";
 
 }

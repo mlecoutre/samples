@@ -8,9 +8,7 @@
     <link href="/css/custom.css" rel="stylesheet">
 </head>
 <body>
-<script src="/lib//js/jquery-1.8.2.js"></script>
-<script src="/lib/js/jquery-ui-1.9.1.custom.min.js"></script>
-<script src="/lib/js/bootstrap.min.js"></script>
+
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
@@ -53,50 +51,14 @@
     </div>
 </div>
 
-
 <div class="container">
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="hero-unit index">
+        <h1>Web Server reporting</h1>
 
-    <p>&nbsp;</p><br/>
+        <p>This application allows you to extract information from ServletMonitoring and display it in charts.</p>
 
-    <h2 class="report">JEE Resources - Threads</h2>
-
-    <div class="accordion" id="accordion2">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                    Filter criteria...
-                </a>
-            </div>
-            <div id="collapseOne" class="accordion-body collapse">
-                <div class="accordion-inner">
-                    <label for="selApplicationName">Application Name<input type="text" id="selApplicationName"
-                                                                           list="applications"> </label>
-                    <datalist id="applications">
-                        <option value="SteelUser">
-                    </datalist>
-                    <label for="selAS">AS<input type="text" id="selAS" cc list="ass"/> </label>
-                    <datalist id="ass">
-                        <option value="AS_STEELUSER">
-                        <option value="AS_STEELUSER_TRAINEE">
-                        <option value="AS_STEELUSER">
-                    </datalist>
-                    <label for="selServer">Servers<input type="text" id="selServer" cc list="servers"> </label>
-                    <datalist id="servers">
-                        <option value="appcfm51">
-                        <option value="appcfm52">
-                        <option value="appstu52">
-                    </datalist>
-                    <div class="button-group">
-                        <input type="button" id="display" class="btn btn-primary" value="Display"/>
-                        <input type="button" id="clear" class="btn" value="Clear"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div id="memoryContainer" style="width:1000px; height:500px">
-
+        <p><a class="btn btn-primary btn-large" href="about.html" data-i18n="index.learmore"></a></p>
     </div>
 </div>
 
@@ -111,14 +73,13 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-
+<script src="/lib//js/jquery-1.8.2.js"></script>
+<script src="/lib/js/jquery-ui-1.9.1.custom.min.js"></script>
+<script src="/lib/js/bootstrap.min.js"></script>
 <script src="/lib/js/jquery.json-2.3.js"></script>
-<script src="/lib/js/highstock.js"></script>
-<script src="/lib/js/highcharts-more.js"></script>
-<script type="text/javascript" src="/lib/js/themes/gray.js"></script>
-<script src="/lib/js/modules/exporting.js"></script>
+<script src="/lib/js/i18next-1.5.8.min.js"></script>
 <script src="/js/utilities.js"></script>
-<script src="/js/thread.js"></script>
+<script src="/js/index.js"></script>
 
 </body>
 </html>

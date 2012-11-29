@@ -7,4 +7,22 @@
     <session-config>
         <session-timeout>15</session-timeout>
     </session-config>
+
+    <servlet>
+        <servlet-name>jersey-services</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>org.mat.samples.mongodb.services</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>jersey-services</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
 </web-app>
